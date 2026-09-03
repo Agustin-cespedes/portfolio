@@ -119,27 +119,43 @@
             box-shadow: 0 0 20px rgba(255, 42, 117, 0.7);
         }
 
+        /* HERO LAYOUT (PC) */
         .hero-layout {
             display: grid;
             grid-template-columns: 280px 1fr 280px;
-            gap: 40px;
+            grid-template-areas: 
+                "left center right"
+                "left cv right";
+            gap: 25px 40px;
             align-items: center;
         }
 
-        @media (max-width: 1100px) { .hero-layout { grid-template-columns: 1fr; } }
+        .hero-cards-wrapper {
+            display: contents; /* Mantiene la compatibilidad con el Grid de PC */
+        }
 
-        .hero-side-col {
+        .col-left { 
+            grid-area: left; 
             display: flex;
             flex-direction: column;
             gap: 25px;
         }
 
-        .hero-center { text-align: center; }
+        .col-right { 
+            grid-area: right; 
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .hero-center { grid-area: center; text-align: center; }
+        .hero-cv-container { grid-area: cv; text-align: center; }
+
         .hero-center h1 { font-size: 4.2rem; color: #ffffff; font-family: var(--font-headers); letter-spacing: 2px; line-height: 1.1; margin-bottom: 12px; }
         .hero-center .subtitle { font-size: 1.7rem; color: var(--accent-pink); font-family: var(--font-headers); letter-spacing: 1.5px; text-shadow: 0 0 15px rgba(255, 42, 117, 0.5); margin-bottom: 22px; }
         .hero-center .bio { font-size: 1.35rem; color: #c0c4d6; margin-bottom: 30px; font-style: italic; }
 
-        .social-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-bottom: 25px; }
+        .social-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-bottom: 10px; }
         .social-badges a img { height: 44px; transition: transform 0.2s ease; }
         .social-badges a:hover img { transform: translateY(-4px); }
 
@@ -164,20 +180,28 @@
         .scrollable-content::-webkit-scrollbar-thumb { background: var(--accent-purple); border-radius: 8px; }
         .scrollable-content::-webkit-scrollbar-thumb:hover { background: var(--accent-pink); }
 
+        /* VISTA DE JUEGO (PC) */
         .game-detail-container {
-            display: grid; grid-template-columns: 2.4fr 1fr; gap: 40px; background: var(--panel-solid);
-            border: 2px solid #2a2a4a; border-radius: 20px; padding: 40px; box-shadow: 0 12px 35px rgba(0,0,0,0.6);
-            animation: slideRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; align-items: start;
+            display: grid; 
+            grid-template-columns: 2.4fr 1fr; 
+            grid-template-areas: 
+                "video header"
+                "video roles"
+                "video links";
+            gap: 20px 40px; 
+            background: var(--panel-solid);
+            border: 2px solid #2a2a4a; 
+            border-radius: 20px; 
+            padding: 40px; 
+            box-shadow: 0 12px 35px rgba(0,0,0,0.6);
+            animation: slideRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
+            align-items: start;
         }
 
-        @media (max-width: 1200px) { .game-detail-container { grid-template-columns: 1fr; } }
-
-        .video-and-controls {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            width: 100%;
-        }
+        .video-and-controls { grid-area: video; display: flex; align-items: center; gap: 20px; width: 100%; }
+        .game-header-info { grid-area: header; }
+        .game-roles-section { grid-area: roles; }
+        .game-links-container { grid-area: links; display: flex; flex-direction: column; gap: 20px; }
 
         .volume-container {
             display: flex;
@@ -217,16 +241,6 @@
             box-shadow: 0 0 10px var(--accent-pink);
         }
 
-        .volume-slider::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: var(--accent-pink);
-            cursor: pointer;
-            box-shadow: 0 0 10px var(--accent-pink);
-            border: none;
-        }
-
         .game-video-wrapper {
             position: relative; 
             flex-grow: 1;
@@ -241,20 +255,18 @@
 
         .game-video-wrapper iframe, .game-video-wrapper video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
-        .game-info-side { display: flex; flex-direction: column; justify-content: flex-start; height: 100%; }
-        .game-info-side h2 { font-size: 2.5rem; color: #fff; font-family: var(--font-headers); margin-bottom: 16px; border-bottom: 3px solid var(--accent-pink); padding-bottom: 8px; }
+        .game-header-info h2 { font-size: 2.5rem; color: #fff; font-family: var(--font-headers); margin-bottom: 12px; border-bottom: 3px solid var(--accent-pink); padding-bottom: 8px; }
 
-        .game-meta-info { font-family: var(--font-code); font-size: 1.4rem; color: #c0c4d6; margin-bottom: 20px; display: flex; align-items: center; gap: 15px; }
+        .game-meta-info { font-family: var(--font-code); font-size: 1.4rem; color: #c0c4d6; margin-bottom: 15px; display: flex; align-items: center; gap: 15px; }
         .meta-text { color: var(--accent-purple); font-weight: bold; font-size: 1.4rem; }
         
-        .roles-badges-wrapper { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 15px; margin-bottom: 40px; }
+        .roles-badges-wrapper { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; margin-bottom: 25px; }
         
         .badge-solo, .badge-role { user-select: none; cursor: default; }
         
         .badge-solo { background: var(--accent-pink); color: #ffffff; padding: 4px 12px; border-radius: 6px; font-family: var(--font-headers); font-size: 0.95rem; letter-spacing: 1px; text-transform: uppercase; box-shadow: 0 0 10px rgba(255, 42, 117, 0.4); }
         .badge-role { background: rgba(157, 78, 221, 0.25); border: 1px solid var(--accent-purple); color: var(--text-main); padding: 6px 14px; border-radius: 8px; font-family: var(--font-code); font-size: 0.95rem; font-weight: 500; }
 
-        .game-links-container { display: flex; flex-direction: column; gap: 20px; }
         .game-link-icon img { height: 55px; border-radius: 8px; transition: transform 0.2s ease, box-shadow 0.2s ease; }
         .game-link-icon:hover img { transform: translateY(-4px); box-shadow: 0 6px 15px rgba(255, 42, 117, 0.4); }
 
@@ -333,12 +345,12 @@
             flex-shrink: 0;
         }
 
-        .btn { background: transparent; color: var(--text-main); border: 2px solid var(--accent-purple); padding: 12px 24px; font-family: var(--font-headers); font-size: 1.05rem; cursor: pointer; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: 0.3s; margin-top: 15px; }
+        .btn { background: transparent; color: var(--text-main); border: 2px solid var(--accent-purple); padding: 12px 24px; font-family: var(--font-headers); font-size: 1.05rem; cursor: pointer; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; margin-top: 15px; }
         .btn:hover { background: var(--accent-purple); color: white; box-shadow: 0 0 15px var(--accent-purple); }
         .btn-pink { border-color: var(--accent-pink); }
         .btn-pink:hover { background: var(--accent-pink); box-shadow: 0 0 15px var(--accent-pink); }
 
-        /* DOCK BAR INFERIOR - CORRECCIÓN DEFINITIVA DE CORTE */
+        /* DOCK BAR INFERIOR */
         .dock-container {
             position: fixed; 
             bottom: 0; 
@@ -356,7 +368,7 @@
             align-items: center; 
             justify-content: center; 
             gap: 24px; 
-            padding: 30px 80px 20px 80px; /* Padding superior holgado para dar margen al escalado */
+            padding: 30px 80px 20px 80px; 
             overflow-x: auto; 
             width: 100%; 
         }
@@ -384,7 +396,7 @@
         .dock-item:hover svg, .dock-item.active svg { fill: var(--accent-pink); }
         .dock-separator { width: 4px; height: 75px; background: rgba(255, 255, 255, 0.2); margin: 0 8px; flex-shrink: 0; }
 
-        /* MODAL DE PDF REVISADO */
+        /* MODAL DE PDF */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(11, 12, 22, 0.92); backdrop-filter: blur(8px); }
         
         .pdf-modal-container {
@@ -413,6 +425,228 @@
             margin-top: 20px;
         }
 
+        /* =========================================================
+           REGLAS DE ESTILO EXCLUSIVAS PARA MÓVILES (< 900px)
+           ========================================================= */
+        @media (max-width: 900px) {
+            body {
+                padding-top: 20px;
+                padding-bottom: 130px;
+                font-size: 18px;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+
+            .side-nav-arrow {
+                width: 42px;
+                height: 42px;
+                z-index: 1200;
+            }
+            .side-nav-arrow svg { width: 24px; height: 24px; }
+            .arrow-left { left: 8px; }
+            .arrow-right { right: 8px; }
+
+            /* HOME LAYOUT MÓVIL */
+            .hero-layout {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .hero-center {
+                order: 1;
+            }
+
+            .hero-center h1 { font-size: 2.3rem; }
+            .hero-center .subtitle { font-size: 1.15rem; margin-bottom: 15px; }
+            .hero-center .bio { font-size: 1.05rem; margin-bottom: 20px; }
+
+            .social-badges a img { height: 36px; }
+
+            /* GRIDA 2x2 PARA TARJETAS EN MÓVIL */
+            .hero-cards-wrapper {
+                order: 2;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+                width: 100%;
+            }
+
+            .col-left, .col-right {
+                display: contents;
+            }
+
+            .card-skills { grid-column: 1; grid-row: 1; }
+            .card-academic { grid-column: 2; grid-row: 1; }
+            .card-about { grid-column: 1; grid-row: 2; }
+            .card-experience { grid-column: 2; grid-row: 2; }
+
+            .side-nav-card {
+                padding: 22px 10px;
+                min-height: 100px;
+                border-width: 2px;
+                border-radius: 14px;
+            }
+
+            .side-nav-card h3 {
+                font-size: 0.95rem;
+                letter-spacing: 1px;
+            }
+
+            .hero-cv-container {
+                order: 3;
+                width: 100%;
+            }
+
+            .hero-cv-container .btn {
+                width: 100%;
+                font-size: 1rem !important;
+                padding: 12px 15px !important;
+            }
+
+            /* VISTA DE JUEGOS EN MÓVIL */
+            .game-detail-container {
+                display: flex;
+                flex-direction: column;
+                padding: 20px 15px;
+                gap: 18px;
+            }
+
+            .game-header-info {
+                order: 1;
+                text-align: center;
+                width: 100%;
+            }
+
+            .game-header-info h2 {
+                font-size: 1.8rem;
+                border-bottom: 2px solid var(--accent-pink);
+            }
+
+            .game-meta-info {
+                justify-content: center;
+                font-size: 1.1rem;
+                margin-bottom: 0;
+            }
+
+            .meta-text { font-size: 1.1rem; }
+
+            .video-and-controls {
+                order: 2;
+                flex-direction: column-reverse;
+                gap: 12px;
+            }
+
+            .volume-container {
+                flex-direction: row;
+                width: 100%;
+                height: auto;
+                padding: 10px 15px;
+                gap: 12px;
+            }
+
+            .volume-slider {
+                writing-mode: horizontal-tb;
+                direction: ltr;
+                width: 100%;
+                height: 8px;
+            }
+
+            .game-roles-section {
+                order: 3;
+                width: 100%;
+            }
+
+            .roles-badges-wrapper {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                width: 100%;
+                margin: 0;
+            }
+
+            .badge-role {
+                flex: 1 1 calc(50% - 8px);
+                text-align: center;
+                font-size: 0.85rem;
+                padding: 8px 6px;
+            }
+
+            .game-links-container {
+                order: 4;
+                width: 100%;
+                gap: 12px;
+            }
+
+            .game-link-icon img {
+                width: 100%;
+                height: auto;
+                max-height: 48px;
+                object-fit: contain;
+            }
+
+            h2.section-title {
+                font-size: 2.1rem;
+                margin-bottom: 25px;
+            }
+
+            .about-card {
+                flex-direction: column;
+                padding: 25px 18px;
+                text-align: center;
+            }
+
+            .about-photo {
+                width: 160px;
+                height: 160px;
+            }
+
+            .academic-card {
+                padding: 20px 15px;
+            }
+
+            .dock-bar {
+                padding: 15px 10px;
+                gap: 12px;
+            }
+
+            .dock-item {
+                width: 65px;
+                height: 65px;
+                min-width: 65px;
+                border-radius: 12px;
+                border-width: 2px;
+            }
+
+            .dock-item svg {
+                width: 32px;
+                height: 32px;
+            }
+
+            .dock-separator {
+                height: 40px;
+                width: 2px;
+                margin: 0 4px;
+            }
+
+            .pdf-viewer {
+                width: 100%;
+                height: 60vh;
+            }
+
+            .modal-buttons-row {
+                flex-direction: column;
+                width: 100%;
+                gap: 10px;
+            }
+
+            .modal-buttons-row .btn, .modal-buttons-row .back-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -429,15 +663,8 @@
         <!-- HOME -->
         <div id="home-view" class="page-view active">
             <div class="hero-layout">
-                <div class="hero-side-col">
-                    <div class="side-nav-card" onclick="openView('skills-view')">
-                        <h3>SKILLS</h3>
-                    </div>
-                    <div class="side-nav-card" onclick="openView('about-view')">
-                        <h3>ABOUT ME</h3>
-                    </div>
-                </div>
-
+                
+                <!-- Encabezado + Bio + Redes -->
                 <div class="hero-center">
                     <h1>Agustín Céspedes</h1>
                     <div class="subtitle">Game Programmer | Technical Artist</div>
@@ -450,21 +677,36 @@
                         <a href="https://mail.google.com/mail/?view=cm&fs=1&to=agus360cespedes@gmail.com" target="_blank"><img src="https://img.shields.io/badge/Gmail-%23D14836.svg?style=for-the-badge&logo=gmail&logoColor=white"></a>
                         <a href="https://www.instagram.com/agus_cespedes__/" target="_blank"><img src="https://img.shields.io/badge/Instagram-%23E4405F.svg?style=for-the-badge&logo=instagram&logoColor=white"></a>
                     </div>
-                    <div>
-                        <button class="btn btn-pink" style="font-size: 1.15rem; padding: 14px 28px;" onclick="downloadDirectFile('PDF/Curriculum.pdf')">
-                            📄 Download Curriculum Vitae (PDF)
-                        </button>
+                </div>
+
+                <!-- Wrapper para tarjetas -->
+                <div class="hero-cards-wrapper">
+                    <div class="col-left">
+                        <div class="side-nav-card card-skills" onclick="openView('skills-view')">
+                            <h3>SKILLS</h3>
+                        </div>
+                        <div class="side-nav-card card-about" onclick="openView('about-view')">
+                            <h3>ABOUT ME</h3>
+                        </div>
+                    </div>
+
+                    <div class="col-right">
+                        <div class="side-nav-card card-academic" onclick="openView('academic-view')">
+                            <h3>ACADEMIC BACKGROUND</h3>
+                        </div>
+                        <div class="side-nav-card card-experience" onclick="openView('experience-view')">
+                            <h3>EXPERIENCE</h3>
+                        </div>
                     </div>
                 </div>
 
-                <div class="hero-side-col">
-                    <div class="side-nav-card" onclick="openView('academic-view')">
-                        <h3>ACADEMIC BACKGROUND</h3>
-                    </div>
-                    <div class="side-nav-card" onclick="openView('experience-view')">
-                        <h3>EXPERIENCE</h3>
-                    </div>
+                <!-- Descargar Curriculum -->
+                <div class="hero-cv-container">
+                    <button class="btn btn-pink" style="font-size: 1.15rem; padding: 14px 28px;" onclick="downloadDirectFile('PDF/Curriculum.pdf')">
+                        📄 Download Curriculum Vitae (PDF)
+                    </button>
                 </div>
+
             </div>
         </div>
 
@@ -533,7 +775,7 @@
             <div class="about-card">
                 <img src="Images/FotoCarnet.png" alt="Agustín Céspedes" class="about-photo">
                 <div>
-                    <p style="font-size: 1.35rem; line-height: 1.8; color: #e0e2eb;">
+                    <p style="font-size: 1.25rem; line-height: 1.8; color: #e0e2eb;">
                         Hi! I'm Agustín, a Game Developer and Technical Artist passionate about bringing complex mechanics and interactive systems to life. I specialize in gameplay architecture using Unreal Engine (C++) and Unity (C#), covering everything from advanced AI systems and game logic to 2D/3D asset creation and integration. My focus is on optimizing development pipelines and building efficient, polished, and engaging gameplay experiences.
                     </p>
                 </div>
@@ -583,12 +825,12 @@
                     <h3>Online Courses</h3>
                     <h4>Udemy</h4>
                     <ul style="list-style: none; margin-top: 15px;">
-                        <li style="margin-bottom: 12px; display: flex; align-items: center; gap: 15px;">
-                            <span style="color: #e0e2eb; font-size: 1.15rem; min-width: 250px;">• Unity Game Development</span>
+                        <li style="margin-bottom: 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 15px;">
+                            <span style="color: #e0e2eb; font-size: 1.15rem; min-width: 220px;">• Unity Game Development</span>
                             <img src="https://img.shields.io/badge/Unity-%23000000.svg?style=for-the-badge&logo=unity&logoColor=white" style="height: 32px; border-radius: 4px;" draggable="true">
                         </li>
-                        <li style="display: flex; align-items: center; gap: 15px;">
-                            <span style="color: #e0e2eb; font-size: 1.15rem; min-width: 250px;">• Blender 3D Modeling</span>
+                        <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 15px;">
+                            <span style="color: #e0e2eb; font-size: 1.15rem; min-width: 220px;">• Blender 3D Modeling</span>
                             <img src="https://img.shields.io/badge/Blender-%23F5792A.svg?style=for-the-badge&logo=blender&logoColor=white" style="height: 32px; border-radius: 4px;" draggable="true">
                         </li>
                     </ul>
@@ -607,7 +849,7 @@
                     <h3>Game Developer & Technical Artist Trainee</h3>
                     <h4>ScubaSummer Program | ScubaLight Studios (Mendoza, Arg)</h4>
                     
-                    <p style="margin: 15px 0 25px 0; font-size: 1.25rem; color: #c0c4d6;">
+                    <p style="margin: 15px 0 25px 0; font-size: 1.15rem; color: #c0c4d6;">
                         Prototyped gameplay mechanics and developed core systems during the ScubaSummer program. Collaborated closely with a multidisciplinary team to build an unannounced video game title, focusing on establishing optimized workflows between asset creation and engine implementation.
                     </p>
                     
@@ -627,26 +869,34 @@
 
         <!-- VISTA DE JUEGO -->
         <div id="game-view" class="page-view">
-            <button class="back-btn" style="margin-bottom: 35px;" onclick="openView('home-view')">← Back to Main</button>
+            <button class="back-btn" style="margin-bottom: 25px;" onclick="openView('home-view')">← Back to Main</button>
             <div class="game-detail-container">
                 
+                <!-- Encabezado (Título + Meta) -->
+                <div class="game-header-info">
+                    <h2 id="game-title">Game Title</h2>
+                    <div id="game-meta-container"></div>
+                </div>
+
+                <!-- Video + Controles -->
                 <div class="video-and-controls">
                     <div class="volume-container">
                         <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.01" value="0.5" oninput="updateVideoVolume(this.value)">
-                        <svg viewBox="0 0 24 24" width="26" height="26" fill="var(--accent-pink)">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="var(--accent-pink)">
                             <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.74 2.5-2.26 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
                         </svg>
                     </div>
                     <div class="game-video-wrapper" id="game-video-container"></div>
                 </div>
 
-                <div class="game-info-side">
-                    <div>
-                        <h2 id="game-title">Game Title</h2>
-                        <div id="game-roles"></div>
-                        <div class="game-links-container" id="game-links"></div>
-                    </div>
+                <!-- Roles estirados -->
+                <div class="game-roles-section">
+                    <div id="game-roles-wrapper" class="roles-badges-wrapper"></div>
                 </div>
+
+                <!-- Botones / Enlaces -->
+                <div class="game-links-container" id="game-links"></div>
+
             </div>
         </div>
 
@@ -657,7 +907,7 @@
         <div class="dock-bar" id="dock-bar"></div>
     </div>
 
-    <!-- MODAL PARA PDFS (Sin X roja, cierre haciendo click afuera y botón Back) -->
+    <!-- MODAL PARA PDFS -->
     <div id="certModal" class="modal" onclick="closeModalOnBgClick(event)">
         <div class="pdf-modal-container">
             <iframe id="certPdf" class="pdf-viewer" src=""></iframe>
@@ -814,14 +1064,16 @@
 
             document.getElementById('game-title').innerText = juego.titulo;
             
-            const rolesContainer = document.getElementById('game-roles');
+            const metaContainer = document.getElementById('game-meta-container');
             let metaHtml = `<div class="game-meta-info">
                                 <span class="meta-text">${juego.meta}</span>`;
             if (juego.soloDev) metaHtml += `<span class="badge-solo" draggable="true">Solo Dev</span>`;
             metaHtml += `</div>`;
+            metaContainer.innerHTML = metaHtml;
 
+            const rolesWrapper = document.getElementById('game-roles-wrapper');
             let rolesHtml = juego.roles.map(role => `<span class="badge-role" draggable="true">${role}</span>`).join('');
-            rolesContainer.innerHTML = metaHtml + `<div class="roles-badges-wrapper">${rolesHtml}</div>`;
+            rolesWrapper.innerHTML = rolesHtml;
             
             const videoContainer = document.getElementById('game-video-container');
             videoContainer.innerHTML = juego.videoEmbed;
@@ -881,7 +1133,6 @@
             pdfIframe.src = pdfPath; 
         }
 
-        /* FUNCIÓN DE DESCARGA DIRECTA REGLAMENTARIA (BLOB FORCE) */
         function downloadDirectFile(filePath) {
             if (!filePath) return;
             const fileName = filePath.split('/').pop();
@@ -902,7 +1153,6 @@
                     window.URL.revokeObjectURL(blobUrl);
                 })
                 .catch(() => {
-                    // Fallback nativo
                     const link = document.createElement('a');
                     link.href = filePath;
                     link.download = fileName;
