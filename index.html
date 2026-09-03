@@ -131,7 +131,7 @@
         }
 
         .hero-cards-wrapper {
-            display: contents; /* Mantiene la compatibilidad con el Grid de PC */
+            display: contents;
         }
 
         .col-left { 
@@ -215,6 +215,7 @@
             border: 2px solid var(--accent-purple);
             box-shadow: 0 0 15px rgba(157, 78, 221, 0.2);
             height: auto;
+            flex-shrink: 0;
         }
 
         .volume-slider {
@@ -243,6 +244,7 @@
 
         .game-video-wrapper {
             position: relative; 
+            width: 100%;
             flex-grow: 1;
             padding-bottom: 56.25%; 
             height: 0; 
@@ -425,9 +427,7 @@
             margin-top: 20px;
         }
 
-        /* =========================================================
-           REGLAS DE ESTILO EXCLUSIVAS PARA MÓVILES (< 900px)
-           ========================================================= */
+        /* REGLAS MÓVILES (< 900px) */
         @media (max-width: 900px) {
             body {
                 padding-top: 20px;
@@ -448,24 +448,19 @@
             .arrow-left { left: 8px; }
             .arrow-right { right: 8px; }
 
-            /* HOME LAYOUT MÓVIL */
             .hero-layout {
                 display: flex;
                 flex-direction: column;
                 gap: 20px;
             }
 
-            .hero-center {
-                order: 1;
-            }
-
+            .hero-center { order: 1; }
             .hero-center h1 { font-size: 2.3rem; }
             .hero-center .subtitle { font-size: 1.15rem; margin-bottom: 15px; }
             .hero-center .bio { font-size: 1.05rem; margin-bottom: 20px; }
 
             .social-badges a img { height: 36px; }
 
-            /* GRIDA 2x2 PARA TARJETAS EN MÓVIL */
             .hero-cards-wrapper {
                 order: 2;
                 display: grid;
@@ -474,9 +469,7 @@
                 width: 100%;
             }
 
-            .col-left, .col-right {
-                display: contents;
-            }
+            .col-left, .col-right { display: contents; }
 
             .card-skills { grid-column: 1; grid-row: 1; }
             .card-academic { grid-column: 2; grid-row: 1; }
@@ -490,23 +483,15 @@
                 border-radius: 14px;
             }
 
-            .side-nav-card h3 {
-                font-size: 0.95rem;
-                letter-spacing: 1px;
-            }
+            .side-nav-card h3 { font-size: 0.95rem; letter-spacing: 1px; }
 
-            .hero-cv-container {
-                order: 3;
-                width: 100%;
-            }
-
+            .hero-cv-container { order: 3; width: 100%; }
             .hero-cv-container .btn {
                 width: 100%;
                 font-size: 1rem !important;
                 padding: 12px 15px !important;
             }
 
-            /* VISTA DE JUEGOS EN MÓVIL */
             .game-detail-container {
                 display: flex;
                 flex-direction: column;
@@ -535,8 +520,14 @@
 
             .video-and-controls {
                 order: 2;
+                display: flex;
                 flex-direction: column-reverse;
                 gap: 12px;
+                width: 100%;
+            }
+
+            .game-video-wrapper {
+                width: 100%;
             }
 
             .volume-container {
@@ -603,9 +594,7 @@
                 height: 160px;
             }
 
-            .academic-card {
-                padding: 20px 15px;
-            }
+            .academic-card { padding: 20px 15px; }
 
             .dock-bar {
                 padding: 15px 10px;
@@ -620,10 +609,7 @@
                 border-width: 2px;
             }
 
-            .dock-item svg {
-                width: 32px;
-                height: 32px;
-            }
+            .dock-item svg { width: 32px; height: 32px; }
 
             .dock-separator {
                 height: 40px;
@@ -664,7 +650,6 @@
         <div id="home-view" class="page-view active">
             <div class="hero-layout">
                 
-                <!-- Encabezado + Bio + Redes -->
                 <div class="hero-center">
                     <h1>Agustín Céspedes</h1>
                     <div class="subtitle">Game Programmer | Technical Artist</div>
@@ -679,7 +664,6 @@
                     </div>
                 </div>
 
-                <!-- Wrapper para tarjetas -->
                 <div class="hero-cards-wrapper">
                     <div class="col-left">
                         <div class="side-nav-card card-skills" onclick="openView('skills-view')">
@@ -700,7 +684,6 @@
                     </div>
                 </div>
 
-                <!-- Descargar Curriculum -->
                 <div class="hero-cv-container">
                     <button class="btn btn-pink" style="font-size: 1.15rem; padding: 14px 28px;" onclick="downloadDirectFile('PDF/Curriculum.pdf')">
                         📄 Download Curriculum Vitae (PDF)
@@ -872,13 +855,11 @@
             <button class="back-btn" style="margin-bottom: 25px;" onclick="openView('home-view')">← Back to Main</button>
             <div class="game-detail-container">
                 
-                <!-- Encabezado (Título + Meta) -->
                 <div class="game-header-info">
                     <h2 id="game-title">Game Title</h2>
                     <div id="game-meta-container"></div>
                 </div>
 
-                <!-- Video + Controles -->
                 <div class="video-and-controls">
                     <div class="volume-container">
                         <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.01" value="0.5" oninput="updateVideoVolume(this.value)">
@@ -889,12 +870,10 @@
                     <div class="game-video-wrapper" id="game-video-container"></div>
                 </div>
 
-                <!-- Roles estirados -->
                 <div class="game-roles-section">
                     <div id="game-roles-wrapper" class="roles-badges-wrapper"></div>
                 </div>
 
-                <!-- Botones / Enlaces -->
                 <div class="game-links-container" id="game-links"></div>
 
             </div>
