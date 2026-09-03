@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agustín Céspedes | Game Dev & Tech Artist</title>
+    <title>Agustín Céspedes | Game Developer & Tech Artist</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap');
 
@@ -21,7 +21,6 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        /* CENTRADO VERTICAL DE TODO EL CONTENIDO */
         body { 
             background-color: var(--bg-color); 
             color: var(--text-main); 
@@ -31,9 +30,9 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center; /* Centra el contenido verticalmente */
+            justify-content: center;
             align-items: center;
-            padding-bottom: 180px; /* Espacio reservado para la barra inferior */
+            padding-bottom: 180px;
             padding-top: 40px;
             overflow-x: hidden;
             background-image: 
@@ -43,21 +42,48 @@
 
         .container { 
             width: 100%;
-            max-width: 1650px; /* Ancho máximo ampliado para dar espacio al video gigante */
-            padding: 0 40px; 
+            max-width: 1650px;
+            padding: 0 50px; 
             margin: 0 auto;
         }
 
-        /* VISTAS DE PÁGINA */
+        .side-nav-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1500;
+            width: 60px;
+            height: 60px;
+            background: var(--panel-bg);
+            border: 2px solid var(--accent-purple);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(157, 78, 221, 0.4);
+            color: #ffffff;
+        }
+
+        .side-nav-arrow:hover {
+            background: var(--accent-purple);
+            border-color: var(--accent-pink);
+            transform: translateY(-50%) scale(1.15);
+            box-shadow: 0 0 25px rgba(255, 42, 117, 0.7);
+        }
+
+        .side-nav-arrow svg { width: 36px; height: 36px; fill: #ffffff; }
+        .arrow-left { left: 25px; }
+        .arrow-right { right: 25px; }
+
         .page-view {
             display: none;
             animation: fadeIn 0.4s ease forwards;
             width: 100%;
         }
 
-        .page-view.active {
-            display: block;
-        }
+        .page-view.active { display: block; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(15px); }
@@ -69,7 +95,31 @@
             to { opacity: 1; transform: translateX(0); }
         }
 
-        /* --- HOME HERO LAYOUT --- */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 35px;
+            background: var(--accent-pink);
+            color: #ffffff;
+            font-family: var(--font-headers);
+            font-size: 1.4rem; /* Botón más grande */
+            font-weight: 700;
+            text-decoration: none;
+            padding: 14px 30px; /* Más espacio interior */
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 42, 117, 0.4);
+            border: none;
+        }
+
+        .back-btn:hover {
+            background: #ff528f;
+            transform: translateX(-6px);
+            box-shadow: 0 0 20px rgba(255, 42, 117, 0.7);
+        }
+
         .hero-layout {
             display: grid;
             grid-template-columns: 280px 1fr 280px;
@@ -77,289 +127,156 @@
             align-items: center;
         }
 
-        @media (max-width: 1100px) {
-            .hero-layout { grid-template-columns: 1fr; }
+        @media (max-width: 1100px) { .hero-layout { grid-template-columns: 1fr; } }
+
+        .hero-side-col {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
         }
 
         .hero-center { text-align: center; }
+        .hero-center h1 { font-size: 4.2rem; color: #ffffff; font-family: var(--font-headers); letter-spacing: 2px; line-height: 1.1; margin-bottom: 12px; }
+        .hero-center .subtitle { font-size: 1.7rem; color: var(--accent-pink); font-family: var(--font-headers); letter-spacing: 1.5px; text-shadow: 0 0 15px rgba(255, 42, 117, 0.5); margin-bottom: 22px; }
+        .hero-center .bio { font-size: 1.35rem; color: #c0c4d6; margin-bottom: 30px; }
 
-        .hero-center h1 {
-            font-size: 4.2rem;
-            color: #ffffff;
-            font-family: var(--font-headers);
-            letter-spacing: 2px;
-            line-height: 1.1;
-            margin-bottom: 12px;
-        }
-
-        .hero-center .subtitle {
-            font-size: 1.7rem;
-            color: var(--accent-pink);
-            font-family: var(--font-headers);
-            letter-spacing: 1.5px;
-            text-shadow: 0 0 15px rgba(255, 42, 117, 0.5);
-            margin-bottom: 22px;
-        }
-
-        .hero-center .bio {
-            font-size: 1.35rem;
-            color: #c0c4d6;
-            margin-bottom: 30px;
-        }
-
-        /* Redes y CV */
-        .social-badges {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 14px;
-            margin-bottom: 25px;
-        }
-
-        .social-badges a img {
-            height: 44px;
-            transition: transform 0.2s ease;
-        }
-
+        .social-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-bottom: 25px; }
+        .social-badges a img { height: 44px; transition: transform 0.2s ease; }
         .social-badges a:hover img { transform: translateY(-4px); }
 
-        /* Botones Laterales */
         .side-nav-card {
-            background: var(--panel-solid);
-            border: 3px solid var(--accent-purple);
-            border-radius: 18px;
-            padding: 70px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+            background: var(--panel-solid); border: 3px solid var(--accent-purple); border-radius: 18px; padding: 40px 20px;
+            text-align: center; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+            display: flex; align-items: center; justify-content: center;
         }
 
-        .side-nav-card:hover {
-            transform: translateY(-6px) scale(1.03);
-            border-color: var(--accent-pink);
-            box-shadow: 0 0 25px rgba(255, 42, 117, 0.5);
+        .side-nav-card:hover { transform: translateY(-6px) scale(1.03); border-color: var(--accent-pink); box-shadow: 0 0 25px rgba(255, 42, 117, 0.5); }
+        .side-nav-card h3 { font-size: 1.5rem; font-family: var(--font-headers); letter-spacing: 2px; color: #ffffff; }
+
+        .scrollable-content {
+            max-height: 62vh;
+            overflow-y: auto;
+            padding-right: 15px;
+            margin-right: -15px;
         }
 
-        .side-nav-card h3 {
-            font-size: 1.6rem;
-            font-family: var(--font-headers);
-            letter-spacing: 2px;
-            color: #ffffff;
-        }
+        .scrollable-content::-webkit-scrollbar { width: 10px; }
+        .scrollable-content::-webkit-scrollbar-track { background: #0b0c16; border-radius: 8px; border: 1px solid #2a2a4a; }
+        .scrollable-content::-webkit-scrollbar-thumb { background: var(--accent-purple); border-radius: 8px; }
+        .scrollable-content::-webkit-scrollbar-thumb:hover { background: var(--accent-pink); }
 
-        /* --- VISTA DE JUEGO (VIDEO GIGANTE Y TEXTO DESPLAZADO A LA DERECHA) --- */
         .game-detail-container {
-            display: grid;
-            grid-template-columns: 2.4fr 1fr; /* Prioridad masiva de espacio al video */
-            gap: 40px;
-            background: var(--panel-solid);
-            border: 2px solid #2a2a4a;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 12px 35px rgba(0,0,0,0.6);
-            animation: slideRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            align-items: start;
+            display: grid; grid-template-columns: 2.4fr 1fr; gap: 40px; background: var(--panel-solid);
+            border: 2px solid #2a2a4a; border-radius: 20px; padding: 40px; box-shadow: 0 12px 35px rgba(0,0,0,0.6);
+            animation: slideRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; align-items: start;
         }
 
-        @media (max-width: 1200px) {
-            .game-detail-container { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 1200px) { .game-detail-container { grid-template-columns: 1fr; } }
 
-        /* Contenedor del video mucho más grande */
         .game-video-wrapper {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; /* Ratio 16:9 */
-            height: 0;
-            border-radius: 14px;
-            overflow: hidden;
-            background: #000;
-            border: 2px solid var(--accent-purple);
-            box-shadow: 0 0 25px rgba(157, 78, 221, 0.35);
+            position: relative; width: 100%; padding-bottom: 56.25%; height: 0; border-radius: 14px; overflow: hidden;
+            background: #000; border: 2px solid var(--accent-purple); box-shadow: 0 0 25px rgba(157, 78, 221, 0.35);
         }
 
-        .game-video-wrapper iframe, .game-video-wrapper video {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            border: 0;
-        }
+        .game-video-wrapper iframe, .game-video-wrapper video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
-        .game-info-side {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100%;
-            min-height: 100%;
-        }
+        .game-info-side { display: flex; flex-direction: column; justify-content: flex-start; height: 100%; }
+        .game-info-side h2 { font-size: 2.5rem; color: #fff; font-family: var(--font-headers); margin-bottom: 16px; border-bottom: 3px solid var(--accent-pink); padding-bottom: 8px; }
 
-        .game-info-side h2 {
-            font-size: 2.5rem;
-            color: #fff;
-            font-family: var(--font-headers);
-            margin-bottom: 16px;
-            border-bottom: 3px solid var(--accent-pink);
-            padding-bottom: 8px;
-        }
+        .game-meta-info { font-family: var(--font-code); font-size: 1.4rem; color: #c0c4d6; margin-bottom: 20px; display: flex; align-items: center; gap: 15px; }
+        .meta-text { color: var(--accent-purple); font-weight: bold; font-size: 1.4rem; }
+        
+        .roles-badges-wrapper { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 15px; margin-bottom: 40px; }
+        
+        .badge-solo, .badge-role { user-select: none; cursor: default; }
+        
+        .badge-solo { background: var(--accent-pink); color: #ffffff; padding: 4px 12px; border-radius: 6px; font-family: var(--font-headers); font-size: 0.95rem; letter-spacing: 1px; text-transform: uppercase; box-shadow: 0 0 10px rgba(255, 42, 117, 0.4); }
+        .badge-role { background: rgba(157, 78, 221, 0.25); border: 1px solid var(--accent-purple); color: var(--text-main); padding: 6px 14px; border-radius: 8px; font-family: var(--font-code); font-size: 0.95rem; font-weight: 500; }
 
-        .roles-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
+        .game-links-container { display: flex; flex-direction: column; gap: 20px; }
+        .game-link-icon img { height: 55px; border-radius: 8px; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .game-link-icon:hover img { transform: translateY(-4px); box-shadow: 0 6px 15px rgba(255, 42, 117, 0.4); }
 
-        .badge-role {
-            background: rgba(157, 78, 221, 0.25);
-            border: 1px solid var(--accent-purple);
-            color: var(--text-main);
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-family: var(--font-code);
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-
-        .game-description {
-            font-size: 1.2rem;
-            color: #c0c4d6;
-            margin-bottom: 25px;
-            line-height: 1.6;
-        }
-
-        .game-links-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
-            margin-top: auto;
-        }
-
-        /* --- SECCIONES GENERALES --- */
+        /* Títulos de sección más grandes */
         h2.section-title { 
             font-family: var(--font-headers); 
-            font-size: 2.4rem; 
+            font-size: 3.4rem; /* Aumentado considerablemente */
             color: white; 
-            border-bottom: 3px solid var(--accent-pink); 
-            padding-bottom: 10px; 
-            margin-bottom: 30px; 
+            border-bottom: 4px solid var(--accent-pink); 
+            padding-bottom: 12px; 
+            margin-bottom: 40px; 
             display: inline-block; 
         }
-
-        .back-btn {
-            display: inline-block;
-            margin-bottom: 25px;
-            color: var(--accent-pink);
-            font-family: var(--font-headers);
-            font-size: 1.2rem;
-            text-decoration: none;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .back-btn:hover { color: #fff; transform: translateX(-6px); }
 
         .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
         .skill-card { background: #0b0c16; border: 1px solid #2a2a4a; border-radius: 12px; padding: 25px; border-left: 5px solid var(--accent-purple); }
         .skill-card h3 { margin-bottom: 16px; font-size: 1.3rem; color: var(--accent-pink); font-family: var(--font-headers); }
-        .badges img { margin: 6px 6px 6px 0; height: 36px; vertical-align: middle; }
+        
+        .badges { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+        .badges img { height: 36px; border-radius: 4px; vertical-align: middle; margin: 4px 0; }
 
-        .academic-card { background: #0b0c16; padding: 28px; margin-bottom: 20px; border-radius: 12px; border: 1px solid #2a2a4a; }
+        .custom-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            height: 36px;
+            padding: 0 14px 0 10px;
+            border-radius: 4px;
+            font-family: Verdana, Geneva, "DejaVu Sans", sans-serif;
+            font-size: 10.5px;
+            font-weight: bold;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            vertical-align: middle;
+            user-select: none;
+            cursor: default;
+            margin: 4px 0;
+        }
+
+        .custom-badge img {
+            height: 22px !important;
+            width: auto !important;
+            margin: 0 !important;
+            border-radius: 0px !important;
+            pointer-events: none;
+        }
+
+        .badge-illustrator { background-color: #661100; }
+        .badge-animate { background-color: #050038; }
+        .badge-sai { background-color: #709900; }
+        /* Nuevo badge amarillo para ScubaLight con letra oscura para mayor legibilidad */
+        .badge-scubalight { background-color: #FFC107; color: #0b0c16; }
+
+        .academic-card { background: var(--panel-bg); padding: 28px; margin-bottom: 20px; border-radius: 12px; border: 1px solid #2a2a4a; transition: all 0.3s; }
+        .academic-card:hover { border-color: var(--accent-purple); box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         .academic-card h3 { color: var(--accent-purple); font-size: 1.5rem; font-family: var(--font-headers); }
         .academic-card h4 { color: #a0a0a0; font-family: var(--font-code); font-size: 1.05rem; margin-bottom: 12px; }
 
-        .btn {
-            background: transparent; color: var(--text-main); border: 2px solid var(--accent-purple);
-            padding: 12px 24px; font-family: var(--font-headers); font-size: 1.05rem; cursor: pointer;
-            border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: 0.3s;
-        }
+        .btn { background: transparent; color: var(--text-main); border: 2px solid var(--accent-purple); padding: 12px 24px; font-family: var(--font-headers); font-size: 1.05rem; cursor: pointer; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: 0.3s; margin-top: 15px; }
         .btn:hover { background: var(--accent-purple); color: white; box-shadow: 0 0 15px var(--accent-purple); }
         .btn-pink { border-color: var(--accent-pink); }
         .btn-pink:hover { background: var(--accent-pink); box-shadow: 0 0 15px var(--accent-pink); }
 
-        /* --- BARRA DE PESTAÑAS INFERIOR (100% ANCHO CON EFECTO INFINITO DIFUMINADO) --- */
         .dock-container {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100vw;
-            z-index: 1000;
-            background: var(--panel-bg);
-            backdrop-filter: blur(16px);
-            border-top: 2px solid rgba(157, 78, 221, 0.4);
-            padding: 18px 0;
-
-            /* Máscara de gradiente para difuminar los extremos izquierdo y derecho (Efecto Infinito) */
+            position: fixed; bottom: 0; left: 0; width: 100vw; z-index: 1000; background: var(--panel-bg); backdrop-filter: blur(16px);
+            border-top: 2px solid rgba(157, 78, 221, 0.4); padding: 18px 0;
             -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
             mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
         }
-
-        .dock-bar {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            padding: 10px 80px;
-            overflow-x: auto;
-            width: 100%;
-        }
-
+        .dock-bar { display: flex; align-items: center; justify-content: center; gap: 20px; padding: 10px 80px; overflow-x: auto; width: 100%; }
         .dock-bar::-webkit-scrollbar { display: none; }
-
         .dock-item {
-            width: 85px;
-            height: 85px;
-            min-width: 85px;
-            border-radius: 18px;
-            background: #0b0c16;
-            border: 2px solid #2a2a4a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            overflow: hidden;
-            position: relative;
+            width: 85px; height: 85px; min-width: 85px; border-radius: 18px; background: #0b0c16; border: 2px solid #2a2a4a; display: flex;
+            align-items: center; justify-content: center; cursor: pointer; transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275); overflow: hidden; position: relative;
         }
+        .dock-item img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); opacity: 0.55; transition: all 0.25s ease; }
+        .dock-item:hover, .dock-item.active { transform: translateY(-6px) scale(1.1); border-color: var(--accent-pink); box-shadow: 0 0 20px rgba(255, 42, 117, 0.8); }
+        .dock-item:hover img, .dock-item.active img { filter: grayscale(0%); opacity: 1; }
+        .dock-item svg { width: 42px; height: 42px; fill: #a0a0a0; transition: all 0.25s ease; }
+        .dock-item:hover svg, .dock-item.active svg { fill: var(--accent-pink); }
+        .dock-separator { width: 3px; height: 50px; background: rgba(255, 255, 255, 0.2); margin: 0 6px; }
 
-        .dock-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(100%);
-            opacity: 0.55;
-            transition: all 0.25s ease;
-        }
-
-        .dock-item:hover, .dock-item.active {
-            transform: translateY(-6px) scale(1.1);
-            border-color: var(--accent-pink);
-            box-shadow: 0 0 20px rgba(255, 42, 117, 0.8);
-        }
-
-        .dock-item:hover img, .dock-item.active img {
-            filter: grayscale(0%);
-            opacity: 1;
-        }
-
-        .dock-item svg {
-            width: 42px;
-            height: 42px;
-            fill: #a0a0a0;
-            transition: all 0.25s ease;
-        }
-
-        .dock-item:hover svg, .dock-item.active svg {
-            fill: var(--accent-pink);
-        }
-
-        .dock-separator {
-            width: 3px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.2);
-            margin: 0 6px;
-        }
-
-        /* Modal Certificados */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(11, 12, 22, 0.95); }
         .modal-content { margin: 5% auto; display: block; max-width: 85%; max-height: 80vh; border: 2px solid var(--accent-purple); }
         .close-modal { position: absolute; top: 20px; right: 35px; color: var(--accent-pink); font-size: 35px; cursor: pointer; }
@@ -367,20 +284,30 @@
 </head>
 <body>
 
+    <button class="side-nav-arrow arrow-left" id="nav-arrow-left" onclick="navigateStep(-1)">
+        <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+    </button>
+    <button class="side-nav-arrow arrow-right" id="nav-arrow-right" onclick="navigateStep(1)">
+        <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+    </button>
+
     <div class="container">
 
         <div id="home-view" class="page-view active">
             <div class="hero-layout">
-                
-                <div class="side-nav-card" onclick="openView('skills-view')">
-                    <h3>SKILLS</h3>
+                <div class="hero-side-col">
+                    <div class="side-nav-card" onclick="openView('skills-view')">
+                        <h3>SKILLS</h3>
+                    </div>
+                    <div class="side-nav-card" onclick="openView('about-view')">
+                        <h3>ABOUT ME</h3>
+                    </div>
                 </div>
 
                 <div class="hero-center">
                     <h1>Agustín Céspedes</h1>
-                    <div class="subtitle">GAME DEVELOPER | PROGRAMMER | TECHNICAL ARTIST</div>
+                    <div class="subtitle">Game Programmer | Technical Artist</div>
                     <p class="bio">Specialized in bridging the gap between complex code and visual assets. My expertise spans from architecting advanced gameplay systems and networking to creating production-ready 2D/3D art and animations.</p>
-                    
                     <div class="social-badges">
                         <a href="https://github.com/Agustin-cespedes" target="_blank"><img src="https://img.shields.io/badge/GitHub-%23121011.svg?style=for-the-badge&logo=github&logoColor=white"></a>
                         <a href="https://agustin-cespedes.itch.io" target="_blank"><img src="https://img.shields.io/badge/itch.io-%23FA5C5C.svg?style=for-the-badge&logo=itch.io&logoColor=white"></a>
@@ -389,7 +316,6 @@
                         <a href="https://mail.google.com/mail/?view=cm&fs=1&to=agus360cespedes@gmail.com" target="_blank"><img src="https://img.shields.io/badge/Gmail-%23D14836.svg?style=for-the-badge&logo=gmail&logoColor=white"></a>
                         <a href="https://www.instagram.com/agus_cespedes__/" target="_blank"><img src="https://img.shields.io/badge/Instagram-%23E4405F.svg?style=for-the-badge&logo=instagram&logoColor=white"></a>
                     </div>
-
                     <div>
                         <a href="CV_Agustin_Cespedes.pdf" download class="btn btn-pink" style="font-size: 1.15rem; padding: 14px 28px;">
                             📄 Download Curriculum Vitae (PDF)
@@ -397,49 +323,64 @@
                     </div>
                 </div>
 
-                <div class="side-nav-card" onclick="openView('academic-view')">
-                    <h3>ACADEMIC BACKGROUND</h3>
+                <div class="hero-side-col">
+                    <div class="side-nav-card" onclick="openView('academic-view')">
+                        <h3>ACADEMIC BACKGROUND</h3>
+                    </div>
+                    <div class="side-nav-card" onclick="openView('experience-view')">
+                        <h3>EXPERIENCE</h3>
+                    </div>
                 </div>
-
             </div>
         </div>
 
         <div id="skills-view" class="page-view">
-            <span class="back-btn" onclick="openView('home-view')">← Back to Main</span>
+            <button class="back-btn" onclick="openView('home-view')">← Back to Main</button>
+            <br>
             <h2 class="section-title">Tech Stack & Skills</h2>
             <div class="skills-grid">
                 <div class="skill-card">
                     <h3>Languages & Game Engines</h3>
                     <div class="badges">
-                        <img src="https://img.shields.io/badge/C++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white">
-                        <img src="https://img.shields.io/badge/C%23-%23239120.svg?style=for-the-badge&logo=c-sharp&logoColor=white">
-                        <img src="https://img.shields.io/badge/Unreal%20Engine-%230E1128.svg?style=for-the-badge&logo=unrealengine&logoColor=white">
-                        <img src="https://img.shields.io/badge/Unity-%23000000.svg?style=for-the-badge&logo=unity&logoColor=white">
+                        <img src="https://img.shields.io/badge/C++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white" draggable="true">
+                        <img src="https://img.shields.io/badge/C%23-%23239120.svg?style=for-the-badge&logo=c-sharp&logoColor=white" draggable="true">
+                        <img src="https://img.shields.io/badge/Unreal%20Engine-%230E1128.svg?style=for-the-badge&logo=unrealengine&logoColor=white" draggable="true">
+                        <img src="https://img.shields.io/badge/Unity-%23000000.svg?style=for-the-badge&logo=unity&logoColor=white" draggable="true">
                     </div>
                 </div>
-
                 <div class="skill-card">
                     <h3>Art & Design Tools</h3>
                     <div class="badges">
-                        <img src="https://img.shields.io/badge/Blender-%23F5792A.svg?style=for-the-badge&logo=blender&logoColor=white">
-                        <img src="https://img.shields.io/badge/Adobe%20Illustrator-%23FF3366.svg?style=for-the-badge&logo=adobeillustrator&logoColor=white">
-                        <img src="https://img.shields.io/badge/Adobe%20Animate-%23RED.svg?style=for-the-badge&logo=adobeanimate&logoColor=white">
-                        <img src="https://img.shields.io/badge/Aseprite-%237D929E.svg?style=for-the-badge&logo=aseprite&logoColor=white">
-                    </div>
-                    <p style="font-size:0.95rem; color:#a0a0a0; margin-top:10px;">+ Paint Tool SAI 2, Crocotile3D</p>
-                </div>
+                        <img src="https://img.shields.io/badge/Blender-%23F5792A.svg?style=for-the-badge&logo=blender&logoColor=white" draggable="true">
+                        
+                        <div class="custom-badge badge-illustrator" draggable="true">
+                            <img src="Icons/AdobeIlustrator.png" alt="Illustrator">
+                            <span>Illustrator</span>
+                        </div>
 
+                        <div class="custom-badge badge-animate" draggable="true">
+                            <img src="Icons/AdobeAnimate.png" alt="Animate">
+                            <span>Animate</span>
+                        </div>
+
+                        <img src="https://img.shields.io/badge/Aseprite-%237D929E.svg?style=for-the-badge&logo=aseprite&logoColor=white" draggable="true">
+
+                        <div class="custom-badge badge-sai" draggable="true">
+                            <img src="Icons/Sai.png" alt="SAI 2">
+                            <span>SAI 2</span>
+                        </div>
+                    </div>
+                </div>
                 <div class="skill-card">
                     <h3>Workflow & Management</h3>
                     <div class="badges">
-                        <a href="https://github.com/Agustin-cespedes" target="_blank"><img src="https://img.shields.io/badge/GitHub-%23121011.svg?style=for-the-badge&logo=github&logoColor=white"></a>
-                        <img src="https://img.shields.io/badge/GitLab-%23FCA121.svg?style=for-the-badge&logo=gitlab&logoColor=white">
-                        <img src="https://img.shields.io/badge/Trello-%230079BF.svg?style=for-the-badge&logo=trello&logoColor=white">
-                        <img src="https://img.shields.io/badge/Miro-%23050038.svg?style=for-the-badge&logo=miro&logoColor=white">
-                        <img src="https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white">
+                        <img src="https://img.shields.io/badge/GitHub-%23121011.svg?style=for-the-badge&logo=github&logoColor=white" draggable="true">
+                        <img src="https://img.shields.io/badge/GitLab-%23FCA121.svg?style=for-the-badge&logo=gitlab&logoColor=white" draggable="true">
+                        <img src="https://img.shields.io/badge/Trello-%230079BF.svg?style=for-the-badge&logo=trello&logoColor=white" draggable="true">
+                        <img src="https://img.shields.io/badge/Miro-%23050038.svg?style=for-the-badge&logo=miro&logoColor=white" draggable="true">
+                        <img src="https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white" draggable="true">
                     </div>
                 </div>
-
                 <div class="skill-card">
                     <h3>Languages</h3>
                     <p>• Spanish (Native)</p>
@@ -449,60 +390,9 @@
             </div>
         </div>
 
-        <div id="academic-view" class="page-view">
-            <span class="back-btn" onclick="openView('home-view')">← Back to Main</span>
-            <h2 class="section-title">Academic Background</h2>
-            
-            <div class="academic-card">
-                <h3>Technical Degree in Video Game Development</h3>
-                <h4>Universidad de Mendoza (In Progress)</h4>
-                <div class="badges">
-                    <img src="https://img.shields.io/badge/Unreal%20Engine-%230E1128.svg?style=for-the-badge&logo=unrealengine&logoColor=white">
-                    <img src="https://img.shields.io/badge/C++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white">
-                    <img src="https://img.shields.io/badge/Blueprints-%230E1128.svg?style=for-the-badge&logo=unrealengine&logoColor=white">
-                    <img src="https://img.shields.io/badge/Unity-%23000000.svg?style=for-the-badge&logo=unity&logoColor=white">
-                    <img src="https://img.shields.io/badge/C%23-%23239120.svg?style=for-the-badge&logo=c-sharp&logoColor=white">
-                </div>
-                <button class="btn" onclick="openModal('titulo_mendoza.jpg')">View Certificate</button>
-            </div>
-
-            <div class="academic-card">
-                <h3>Full Stack Web Programming</h3>
-                <h4>egg.live | 500 hrs</h4>
-                <div class="badges">
-                    <img src="https://img.shields.io/badge/HTML5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white">
-                    <img src="https://img.shields.io/badge/CSS3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white">
-                    <img src="https://img.shields.io/badge/JavaScript-%23F7DF1E.svg?style=for-the-badge&logo=javascript&logoColor=black">
-                    <img src="https://img.shields.io/badge/React-%2320232A.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB">
-                    <img src="https://img.shields.io/badge/Bootstrap-%237952B3.svg?style=for-the-badge&logo=bootstrap&logoColor=white">
-                    <img src="https://img.shields.io/badge/Sass-%23CC6699.svg?style=for-the-badge&logo=sass&logoColor=white">
-                    <img src="https://img.shields.io/badge/Java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white">
-                    <img src="https://img.shields.io/badge/MySQL-%2300000f.svg?style=for-the-badge&logo=mysql&logoColor=white">
-                    <img src="https://img.shields.io/badge/Spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white">
-                </div>
-                <button class="btn" onclick="openModal('titulo_egg.jpg')">View Certificate</button>
-            </div>
-
-            <div class="academic-card">
-                <h3>Video Game Development Course</h3>
-                <h4>Universidad Tecnológica Nacional (UTN) | 90 hrs</h4>
-                <div class="badges">
-                    <img src="https://img.shields.io/badge/C%23-%23239120.svg?style=for-the-badge&logo=c-sharp&logoColor=white">
-                    <img src="https://img.shields.io/badge/Unity-%23000000.svg?style=for-the-badge&logo=unity&logoColor=white">
-                    <img src="https://img.shields.io/badge/Blender-%23F5792A.svg?style=for-the-badge&logo=blender&logoColor=white">
-                </div>
-                <button class="btn" onclick="openModal('titulo_utn.jpg')">View Certificate</button>
-            </div>
-
-            <div class="academic-card">
-                <h3>Udemy Courses</h3>
-                <p>• 2D RPG Game Development with Unity (C#, Unity)</p>
-                <p>• Stylized Character Creation in Blender</p>
-            </div>
-        </div>
-
         <div id="about-view" class="page-view">
-            <span class="back-btn" onclick="openView('home-view')">← Back to Main</span>
+            <button class="back-btn" onclick="openView('home-view')">← Back to Main</button>
+            <br>
             <h2 class="section-title">About Me</h2>
             <div class="academic-card">
                 <h3>Agustín Céspedes</h3>
@@ -510,22 +400,100 @@
             </div>
         </div>
 
-        <div id="game-view" class="page-view">
-            <span class="back-btn" onclick="openView('home-view')">← Back to Main</span>
-            <div class="game-detail-container">
-                <div class="game-video-wrapper" id="game-video-container">
+        <div id="academic-view" class="page-view">
+            <button class="back-btn" onclick="openView('home-view')">← Back to Main</button>
+            <br>
+            <h2 class="section-title">Academic Background</h2>
+            
+            <div class="scrollable-content">
+                <div class="academic-card">
+                    <h3>Technical Degree in Video Game Development</h3>
+                    <h4>Universidad de Mendoza (In Progress)</h4>
+                    <div class="badges">
+                        <img src="https://img.shields.io/badge/Unreal%20Engine-%230E1128.svg?style=for-the-badge&logo=unrealengine&logoColor=white" draggable="true">
+                        <img src="https://img.shields.io/badge/C++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white" draggable="true">
+                        <img src="https://img.shields.io/badge/Unity-%23000000.svg?style=for-the-badge&logo=unity&logoColor=white" draggable="true">
+                        <img src="https://img.shields.io/badge/C%23-%23239120.svg?style=for-the-badge&logo=c-sharp&logoColor=white" draggable="true">
                     </div>
+                    <button class="btn" onclick="openModal('Images/titulo_mendoza.jpg')">View Certificate</button>
+                </div>
+                <div class="academic-card">
+                    <h3>Full Stack Web Programming</h3>
+                    <h4>egg.live | 500 hrs</h4>
+                    <div class="badges">
+                        <img src="https://img.shields.io/badge/HTML5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white" draggable="true">
+                        <img src="https://img.shields.io/badge/CSS3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white" draggable="true">
+                        <img src="https://img.shields.io/badge/JavaScript-%23F7DF1E.svg?style=for-the-badge&logo=javascript&logoColor=black" draggable="true">
+                        <img src="https://img.shields.io/badge/React-%2320232A.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" draggable="true">
+                        <img src="https://img.shields.io/badge/Java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white" draggable="true">
+                        <img src="https://img.shields.io/badge/MySQL-%2300000f.svg?style=for-the-badge&logo=mysql&logoColor=white" draggable="true">
+                    </div>
+                    <button class="btn" onclick="openModal('Images/titulo_egg.jpg')">View Certificate</button>
+                </div>
+                <div class="academic-card">
+                    <h3>Video Game Development Course</h3>
+                    <h4>Universidad Tecnológica Nacional (UTN) | 90 hrs</h4>
+                    <div class="badges">
+                        <img src="https://img.shields.io/badge/Unreal%20Engine-%230E1128.svg?style=for-the-badge&logo=unrealengine&logoColor=white" draggable="true">
+                        <img src="https://img.shields.io/badge/Blender-%23F5792A.svg?style=for-the-badge&logo=blender&logoColor=white" draggable="true">
+                    </div>
+                    <button class="btn" onclick="openModal('Images/titulo_utn.jpg')">View Certificate</button>
+                </div>
+                <div class="academic-card">
+                    <h3>Online Courses</h3>
+                    <h4>Udemy</h4>
+                    <ul style="list-style: none; margin-top: 15px;">
+                        <li style="margin-bottom: 12px; display: flex; align-items: center; gap: 15px;">
+                            <span style="color: #e0e2eb; font-size: 1.15rem; min-width: 250px;">• Unity Game Development</span>
+                            <img src="https://img.shields.io/badge/Unity-%23000000.svg?style=for-the-badge&logo=unity&logoColor=white" style="height: 32px; border-radius: 4px;" draggable="true">
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 15px;">
+                            <span style="color: #e0e2eb; font-size: 1.15rem; min-width: 250px;">• Blender 3D Modeling</span>
+                            <img src="https://img.shields.io/badge/Blender-%23F5792A.svg?style=for-the-badge&logo=blender&logoColor=white" style="height: 32px; border-radius: 4px;" draggable="true">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="experience-view" class="page-view">
+            <button class="back-btn" onclick="openView('home-view')">← Back to Main</button>
+            <br>
+            <h2 class="section-title">Professional Experience</h2>
+            
+            <div class="scrollable-content">
+                <div class="academic-card">
+                    <h3>Game Developer & Technical Artist Trainee</h3>
+                    <h4>ScubaSummer Program | ScubaLight Studios (Mendoza, Arg)</h4>
+                    
+                    <p style="margin: 15px 0 25px 0; font-size: 1.25rem; color: #c0c4d6;">
+                        Prototyped gameplay mechanics and developed core systems during the ScubaSummer program. Collaborated closely with a multidisciplinary team to build an unannounced video game title, focusing on establishing optimized workflows between asset creation and engine implementation.
+                    </p>
+                    
+                    <div class="badges" style="gap: 12px;">
+                        <a href="https://scubalightstudios.com/" target="_blank" style="text-decoration: none;">
+                            <div class="custom-badge badge-scubalight" draggable="true">
+                                <img src="Icons/ScubaLight.png" alt="ScubaLight Studios">
+                                <span>ScubaLight</span>
+                            </div>
+                        </a>
+                        <img src="https://img.shields.io/badge/Unreal%20Engine-%230E1128.svg?style=for-the-badge&logo=unrealengine&logoColor=white" draggable="true" style="height: 36px;">
+                        <img src="https://img.shields.io/badge/Blender-%23F5792A.svg?style=for-the-badge&logo=blender&logoColor=white" draggable="true" style="height: 36px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="game-view" class="page-view">
+            <button class="back-btn" onclick="openView('home-view')">← Back to Main</button>
+            <div class="game-detail-container">
+                <div class="game-video-wrapper" id="game-video-container"></div>
                 <div class="game-info-side">
                     <div>
                         <h2 id="game-title">Game Title</h2>
-                        <div class="roles-container" id="game-roles">
-                            </div>
-                        <p class="game-description" id="game-desc">
-                            Game description text goes here...
-                        </p>
+                        <div id="game-roles"></div>
+                        <div class="game-links-container" id="game-links"></div>
                     </div>
-                    <div class="game-links-container" id="game-links">
-                        </div>
                 </div>
             </div>
         </div>
@@ -533,8 +501,7 @@
     </div>
 
     <div class="dock-container">
-        <div class="dock-bar" id="dock-bar">
-            </div>
+        <div class="dock-bar" id="dock-bar"></div>
     </div>
 
     <div id="certModal" class="modal">
@@ -545,84 +512,164 @@
     <script>
         const misJuegos = [
             {
-                id: "juego-1",
-                titulo: "Proyecto 1",
-                icono: "https://via.placeholder.com/150/15162b/ff2a75?text=Juego+1",
-                videoEmbed: '<iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&loop=1&playlist=dQw4w9WgXcQ" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
-                roles: ["Game Design", "Level Design", "C++", "Unreal Engine"],
-                descripcion: "Descripción detallada del juego 1, mecánicas principales, diseño de niveles y arquitectura de código implementada.",
-                links: [
-                    { texto: "Play on Itch.io", url: "https://agustin-cespedes.itch.io" },
-                    { texto: "View Repository", url: "https://github.com/Agustin-cespedes" }
-                ]
+                id: "graveguard",
+                titulo: "GraveGuard",
+                icono: "Images/GraveGuard.png",
+                videoEmbed: '<video src="Videos/GraveGuard Preview.mp4" autoplay loop muted playsinline style="width:100%; height:100%; object-fit:cover;"></video>',
+                meta: "2025 • 3 Months",
+                soloDev: true,
+                roles: ["Programmer", "Technical Artist", "Game Designer", "Level Designer"],
+                github: "https://github.com/Agus-SoloDev-Org/ProtectTreasure",
+                itch: null
             },
             {
-                id: "juego-2",
-                titulo: "Proyecto 2",
-                icono: "https://via.placeholder.com/150/15162b/9d4edd?text=Juego+2",
-                videoEmbed: '<iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&loop=1&playlist=dQw4w9WgXcQ" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
-                roles: ["3D Art", "Technical Art", "C#", "Unity"],
-                descripcion: "Descripción para el segundo proyecto. Enfocado en la optimización de shaders, animación 3D y sistemas de juego complejos.",
-                links: [
-                    { texto: "Play Game", url: "https://agustin-cespedes.itch.io" }
-                ]
+                id: "thecure",
+                titulo: "The Cure",
+                icono: "Images/TheCure.png",
+                videoEmbed: '<video src="Videos/TheCurePreview.mp4" autoplay loop muted playsinline style="width:100%; height:100%; object-fit:cover;"></video>',
+                meta: "2025 • 3 Months",
+                soloDev: true,
+                roles: ["Programmer", "2D Artist", "Technical Artist", "Game Designer", "Level Designer"],
+                github: "https://github.com/Agustin-cespedes/THE-CURE",
+                itch: "https://agustin-cespedes.itch.io/the-cure"
+            },
+            {
+                id: "plainsight",
+                titulo: "PlainSight",
+                icono: "Images/PlainSight.png",
+                videoEmbed: '<video src="Videos/PlainSight Preview.mp4" autoplay loop muted playsinline style="width:100%; height:100%; object-fit:cover;"></video>',
+                meta: "2024 • 2 Weeks",
+                soloDev: false,
+                roles: ["Programmer", "Technical Artist", "UI Artist", "Game Designer", "Level Designer"],
+                github: "https://github.com/Agustin-cespedes/JamProgramacion-Grupo6",
+                itch: "https://valenfurlani.itch.io/plane-sight"
+            },
+            {
+                id: "simpsons",
+                titulo: "Simpsons DasBus",
+                icono: "Images/SimpsonsDasBus.png",
+                videoEmbed: '<video src="Videos/SimpsonsPreview.mp4" autoplay loop muted playsinline style="width:100%; height:100%; object-fit:cover;"></video>',
+                meta: "2023 • 1 Week",
+                soloDev: true,
+                roles: ["Programmer", "Technical Artist", "3D Artist", "UI Artist", "Game Designer", "Level Designer"],
+                github: "https://github.com/Agustin-cespedes/TimerJamG5Simpson",
+                itch: "https://agustin-cespedes.itch.io/simpsons-das-bus"
+            },
+            {
+                id: "coverall",
+                titulo: "Coverall",
+                icono: "Images/Coverall.png",
+                videoEmbed: '<video src="Videos/Coverall Preview.mp4" autoplay loop muted playsinline style="width:100%; height:100%; object-fit:cover;"></video>',
+                meta: "2023 • 2 Weeks",
+                soloDev: false,
+                roles: ["Programmer", "Technical Artist", "UI Artist", "Level Designer"],
+                github: "https://github.com/grupo-3-jam2-phobias/Phobia-grupo3-jam2",
+                itch: "https://agustin-cespedes.itch.io/coverall"
             }
         ];
 
-        function openView(viewId) {
+        const navSteps = [
+            { id: 'home-view' },         // Index 0
+            { id: 'skills-view' },       // Index 1
+            { id: 'about-view' },        // Index 2
+            { id: 'academic-view' },     // Index 3
+            { id: 'experience-view' },   // Index 4
+            { gameIndex: 0 },            // Index 5
+            { gameIndex: 1 },
+            { gameIndex: 2 },
+            { gameIndex: 3 },
+            { gameIndex: 4 }
+        ];
+
+        let currentStepIndex = 0; 
+
+        function goToStep(index) {
+            if (index < 0 || index >= navSteps.length) return;
+            currentStepIndex = index;
+
+            const step = navSteps[index];
+
             document.querySelectorAll('.page-view').forEach(view => view.classList.remove('active'));
             document.querySelectorAll('.dock-item').forEach(item => item.classList.remove('active'));
 
-            const targetView = document.getElementById(viewId);
-            if (targetView) targetView.classList.add('active');
+            if (step.id) {
+                document.getElementById(step.id)?.classList.add('active');
+                if (step.id === 'home-view') document.getElementById('dock-home')?.classList.add('active');
+            } else if (step.gameIndex !== undefined) {
+                renderGameDetails(step.gameIndex);
+                document.getElementById('game-view')?.classList.add('active');
+                document.getElementById(`dock-game-${step.gameIndex}`)?.classList.add('active');
+            }
 
-            if (viewId === 'home-view') {
-                document.getElementById('dock-home')?.classList.add('active');
-            } else if (viewId === 'about-view') {
-                document.getElementById('dock-about')?.classList.add('active');
+            const leftArrow = document.getElementById('nav-arrow-left');
+            const rightArrow = document.getElementById('nav-arrow-right');
+
+            if (leftArrow && rightArrow) {
+                // Si el índice es menor a 5 (es el Home o las secciones), Ocultamos ambas flechas
+                if (currentStepIndex < 5) {
+                    leftArrow.style.display = 'none';
+                    rightArrow.style.display = 'none';
+                } else {
+                    // Solo mostramos flechas de navegación al visualizar los juegos
+                    leftArrow.style.display = (currentStepIndex === 5) ? 'none' : 'flex';
+                    rightArrow.style.display = (currentStepIndex === navSteps.length - 1) ? 'none' : 'flex';
+                }
             }
         }
 
+        function navigateStep(direction) { goToStep(currentStepIndex + direction); }
+        
+        function openView(viewId) {
+            const stepIdx = navSteps.findIndex(s => s.id === viewId);
+            if (stepIdx !== -1) goToStep(stepIdx);
+        }
+
         function loadGame(index) {
+            const stepIdx = navSteps.findIndex(s => s.gameIndex === index);
+            if (stepIdx !== -1) goToStep(stepIdx);
+        }
+
+        function renderGameDetails(index) {
             const juego = misJuegos[index];
             if (!juego) return;
 
             document.getElementById('game-title').innerText = juego.titulo;
-            document.getElementById('game-desc').innerText = juego.descripcion;
+            
+            const rolesContainer = document.getElementById('game-roles');
+            let metaHtml = `<div class="game-meta-info">
+                                <span class="meta-text">${juego.meta}</span>`;
+            if (juego.soloDev) metaHtml += `<span class="badge-solo" draggable="true">Solo Dev</span>`;
+            metaHtml += `</div>`;
+
+            let rolesHtml = juego.roles.map(role => `<span class="badge-role" draggable="true">${role}</span>`).join('');
+            rolesContainer.innerHTML = metaHtml + `<div class="roles-badges-wrapper">${rolesHtml}</div>`;
             document.getElementById('game-video-container').innerHTML = juego.videoEmbed;
 
-            const rolesContainer = document.getElementById('game-roles');
-            rolesContainer.innerHTML = juego.roles.map(role => `<span class="badge-role">${role}</span>`).join('');
-
             const linksContainer = document.getElementById('game-links');
-            linksContainer.innerHTML = juego.links.map(link => 
-                `<a href="${link.url}" target="_blank" class="btn btn-pink">${link.texto} ↗</a>`
-            ).join('');
-
-            openView('game-view');
-
-            document.querySelectorAll('.dock-item').forEach(item => item.classList.remove('active'));
-            document.getElementById(`dock-game-${index}`)?.classList.add('active');
+            let linksHtml = '';
+            
+            if (juego.itch) {
+                linksHtml += `<a href="${juego.itch}" target="_blank" class="game-link-icon">
+                                <img src="https://img.shields.io/badge/Play_on_itch.io-%23FA5C5C.svg?style=for-the-badge&logo=itch.io&logoColor=white" alt="Play on Itch.io">
+                              </a>`;
+            }
+            if (juego.github) {
+                linksHtml += `<a href="${juego.github}" target="_blank" class="game-link-icon">
+                                <img src="https://img.shields.io/badge/View_Source_Code-%23121011.svg?style=for-the-badge&logo=github&logoColor=white" alt="View on GitHub">
+                              </a>`;
+            }
+            
+            linksContainer.innerHTML = linksHtml;
         }
 
         function renderDock() {
             const dockBar = document.getElementById('dock-bar');
-            
             let html = `
-                <div class="dock-item" id="dock-about" title="About Me" onclick="openView('about-view')">
-                    <img src="https://via.placeholder.com/150/15162b/ffffff?text=Perfil" alt="About Me">
-                </div>
-            `;
-
-            html += `
                 <div class="dock-item active" id="dock-home" title="Home" onclick="openView('home-view')">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-                    </svg>
+                    <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
                 </div>
                 <div class="dock-separator"></div>
             `;
-
             misJuegos.forEach((juego, index) => {
                 html += `
                     <div class="dock-item" id="dock-game-${index}" title="${juego.titulo}" onclick="loadGame(${index})">
@@ -630,7 +677,6 @@
                     </div>
                 `;
             });
-
             dockBar.innerHTML = html;
         }
 
@@ -641,6 +687,7 @@
 
         window.onload = function() {
             renderDock();
+            goToStep(0); // Empezamos en Home
         };
     </script>
 </body>
